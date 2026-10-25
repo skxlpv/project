@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://du22kyqcll4ub"]
+
+[ext_resource type="Texture2D" uid="uid://cxc06ja5kxfoi" path="res://assets/player/Hair.png" id="1_eh0f6"]
+[ext_resource type="Texture2D" uid="uid://bqm6a5cceyxod" path="res://assets/player/Head.png" id="2_ks8m5"]
+[ext_resource type="Texture2D" uid="uid://cee8krhqcbpji" path="res://assets/player/Torso.png" id="3_l1ths"]
+[ext_resource type="Script" uid="uid://cnh2rr6t6la8x" path="res://entities/player_movement.gd" id="3_lw5ub"]
+[ext_resource type="Texture2D" uid="uid://dvgbtr450pr1v" path="res://assets/player/Boots.png" id="4_a1f57"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l1ths"]
+size = Vector2(11, 7.020834)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_khhxn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s1fef"]
+radius = 5.8763294
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1fef"]
+size = Vector2(10, 14)
+
+[node name="Player" type="Node2D" unique_id=1640445527]
+scale = Vector2(8, 8)
+script = ExtResource("3_lw5ub")
+
+[node name="Legs" type="RigidBody2D" parent="." unique_id=1273611707]
+
+[node name="Legs" type="Sprite2D" parent="Legs" unique_id=199539521]
+scale = Vector2(6, 6)
+texture = ExtResource("4_a1f57")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Legs" unique_id=1273123083]
+position = Vector2(-3.125, 75.0625)
+scale = Vector2(6, 6)
+shape = SubResource("RectangleShape2D_l1ths")
+
+[node name="Head" type="RigidBody2D" parent="." unique_id=699728268]
+physics_material_override = SubResource("PhysicsMaterial_khhxn")
+
+[node name="Head" type="Sprite2D" parent="Head" unique_id=1675614777]
+scale = Vector2(6, 6)
+texture = ExtResource("2_ks8m5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head" unique_id=586361870]
+position = Vector2(-6, -24)
+scale = Vector2(6, 6)
+shape = SubResource("CircleShape2D_s1fef")
+disabled = true
+
+[node name="Torso" type="RigidBody2D" parent="." unique_id=1407109017]
+physics_material_override = SubResource("PhysicsMaterial_khhxn")
+
+[node name="Torso" type="Sprite2D" parent="Torso" unique_id=2376448]
+scale = Vector2(6, 6)
+texture = ExtResource("3_l1ths")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Torso" unique_id=187526607]
+position = Vector2(-6, 30)
+scale = Vector2(6, 6)
+shape = SubResource("RectangleShape2D_s1fef")
+disabled = true
+
+[node name="Hair" type="RigidBody2D" parent="." unique_id=1437092072]
+
+[node name="Hair" type="Sprite2D" parent="Hair" unique_id=1054953302]
+scale = Vector2(6, 6)
+texture = ExtResource("1_eh0f6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hair" unique_id=1231527316]
+position = Vector2(-6, -24)
+scale = Vector2(6, 6)
+shape = SubResource("CircleShape2D_s1fef")
+disabled = true
+
+[node name="NeckJoint" type="PinJoint2D" parent="." unique_id=1164162708]
+node_a = NodePath("../Torso")
+node_b = NodePath("../Head")
+
+[node name="HipJoint" type="PinJoint2D" parent="." unique_id=1417303619]
+node_a = NodePath("../Torso")
+node_b = NodePath("../Legs")
+
+[node name="HairJoint" type="PinJoint2D" parent="." unique_id=1711921830]
+position = Vector2(-4.625, -40.125)
+node_a = NodePath("../Head")
+node_b = NodePath("../Hair")
+bias = 0.9
